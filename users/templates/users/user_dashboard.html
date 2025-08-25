@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>User Dashboard</title></head>
+<body>
+    <h1>User Dashboard</h1>
+    <p>Welcome, {{ user.username }}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+    <nav>
+      <ul>
+        <!-- Add user feature links here -->
+        <li><a href="#">View Timetable</a></li>
+        <li><a href="#">View Locations</a></li>
+        <li><a href="#">Scheduler</a></li>
+      </ul>
+    </nav>
+</body>
+</html>

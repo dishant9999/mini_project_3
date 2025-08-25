@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, {{ user.username }}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+    <nav>
+      <ul>
+        <li><a href="/admin/">Django Admin Panel</a></li>
+        <!-- Add admin feature links here -->
+      </ul>
+    </nav>
+</body>
+</html>

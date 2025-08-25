@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Streams</title></head>
+<body>
+<h1>Streams in {{ department.name }}</h1>
+<ul>
+  {% for stream in streams %}
+    <li><a href="{% url 'timetable_detail' stream.id %}">{{ stream.name }} - Sem {{ stream.semester }} Div {{ stream.division }}</a></li>
+  {% empty %}
+    <li>No streams available.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'department_list' %}">Back to Departments</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Departments</title></head>
+<body>
+<h1>Departments</h1>
+<ul>
+  {% for dept in departments %}
+    <li><a href="{% url 'stream_list' dept.id %}">{{ dept.name }}</a></li>
+  {% empty %}
+    <li>No departments available.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'dashboard' %}">Back to dashboard</a>
+</body>
+</html>

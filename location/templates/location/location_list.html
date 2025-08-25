@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Locations</title></head>
+<body>
+<h1>Locations</h1>
+<ul>
+  {% for loc in locations %}
+    <li>{{ loc.room_type }} - {{ loc.room_number }}</li>
+  {% empty %}
+    <li>No locations available.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</body>
+</html>
