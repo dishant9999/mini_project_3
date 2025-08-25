@@ -1,7 +1,5 @@
 from django import forms
-from timetable.models import Department, Stream, Professor, Subject
-from location.models import Location
-from scheduler.models import Task
+from .models import Department, Stream, Professor, Subject, Location
 
 class DepartmentForm(forms.ModelForm):
     class Meta:
@@ -27,8 +25,3 @@ class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
         fields = ['room_number', 'room_type']
-
-class TaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ['title', 'expected_duration', 'priority', 'date', 'scheduled_start_time', 'scheduled_end_time', 'completed', 'pending', 'user']

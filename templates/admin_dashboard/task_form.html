@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Task Form{% endblock %}
+{% block content %}
+<h2>{{ form.instance.pk|yesno:"Edit Task,Add Task" }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+  <a href="{% url 'task_list' %}">Cancel</a>
+</form>
+{% endblock %}

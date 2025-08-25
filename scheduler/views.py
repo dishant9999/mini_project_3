@@ -1,38 +1,35 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from datetime import date as date_class
-
-from .models import Task, FreeTimeSlot
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Task
 from .forms import TaskForm
-from .utils import arrange_tasks
 
-@login_required
-def scheduler_view(request):
-    user = request.user
-    today = date_class.today()
+def task_list(request):
+    tasks = Task.objects.all()
+    return render(request, 'admin_dashboard/task_list.html', {'tasks': tasks})
 
+def task_add(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            task = form.save(commit=False)
-            task.user = user
-            task.date = today
-            task.save()
-
-            free_slots_qs = FreeTimeSlot.objects.filter(user=user, date=today).order_by('start_time')
-            free_slots = [(slot.start_time, slot.end_time) for slot in free_slots_qs]
-            tasks = Task.objects.filter(user=user, date=today, completed=False).order_by('-priority')
-
-            arrange_tasks(user, today, free_slots, list(tasks))
-            return redirect('scheduler_view')
+            form.save()
+            return redirect('task_list')
     else:
         form = TaskForm()
+    return render(request, 'admin_dashboard/task_form.html', {'form': form})
 
-    pending_tasks = Task.objects.filter(user=user, pending=True, completed=False, date=today).order_by('-priority')
-    scheduled_tasks = Task.objects.filter(user=user, pending=False, completed=False, date=today).order_by('scheduled_start_time')
+def task_edit(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('task_list')
+    else:
+        form = TaskForm(instance=task)
+    return render(request, 'admin_dashboard/task_form.html', {'form': form})
 
-    return render(request, 'scheduler/scheduler.html', {
-        'pending_tasks': pending_tasks,
-        'scheduled_tasks': scheduled_tasks,
-        'form': form,
-    })
+def task_delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('task_list')
+    return render(request, 'admin_dashboard/task_confirm_delete.html', {'task': task})

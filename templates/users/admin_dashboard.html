@@ -1,21 +1,16 @@
 {% extends 'base.html' %}
-
 {% block title %}Admin Dashboard{% endblock %}
-
 {% block content %}
-<h2>Welcome, Admin {{ user.username }}</h2>
-
-<p>This is the admin dashboard where you can manage the system.</p>
-
+<h2>Admin Dashboard</h2>
+<p>Welcome, {{ user.username }}</p>
 <ul>
-  <ul>
   <li><a href="{% url 'department_list' %}">Manage Departments</a></li>
   <li><a href="{% url 'stream_list' %}">Manage Streams</a></li>
   <li><a href="{% url 'professor_list' %}">Manage Professors</a></li>
   <li><a href="{% url 'subject_list' %}">Manage Subjects</a></li>
   <li><a href="{% url 'location_list' %}">Manage Locations</a></li>
   <li><a href="{% url 'task_list' %}">Manage Tasks</a></li>
-</ul>
+  <li><a href="{% url 'generate_timetable' %}">Generate Timetable</a></li>
 
 </ul>
 {% endblock %}

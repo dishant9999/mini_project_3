@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Locations{% endblock %}
+{% block content %}
+<h2>Locations</h2>
+<a href="{% url 'location_add' %}">Add Location</a>
+<ul>
+  {% for location in locations %}
+    <li>{{ location.room_number }} - {{ location.room_type }}
+        (<a href="{% url 'location_edit' location.pk %}">Edit</a> |
+         <a href="{% url 'location_delete' location.pk %}">Delete</a>)
+    </li>
+  {% empty %}
+    <li>No locations found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

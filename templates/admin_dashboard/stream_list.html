@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Streams{% endblock %}
+{% block content %}
+<h2>Streams</h2>
+<a href="{% url 'stream_add' %}">Add Stream</a>
+<ul>
+  {% for stream in streams %}
+    <li>{{ stream.name }} (Sem {{ stream.semester }}, Div {{ stream.division }}) - {{ stream.department.name }}
+        (<a href="{% url 'stream_edit' stream.pk %}">Edit</a> |
+         <a href="{% url 'stream_delete' stream.pk %}">Delete</a>)
+    </li>
+  {% empty %}
+    <li>No streams found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
