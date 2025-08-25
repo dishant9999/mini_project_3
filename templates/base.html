@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}College Management{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <header>
+        <h1>Time Management System</h1>
+        {% if request.path != "/" %}
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'department_list' %}">Timetable</a></li>
+                    <li><a href="{% url 'location_list' %}">Locations</a></li>
+                    {% if not user.is_admin %}
+                        <li><a href="{% url 'scheduler_view' %}">Scheduler</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'login' %}">Logout</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </header>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Time Management</p>
+    </footer>
+</body>
+</html>
