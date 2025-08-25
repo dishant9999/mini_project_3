@@ -1,4 +1,3 @@
-# location/models.py
 from django.db import models
 
 class Location(models.Model):
@@ -7,6 +6,7 @@ class Location(models.Model):
         ('Lab', 'Lab'),
         ('Auditorium', 'Auditorium'),
     ]
+
     room_number = models.CharField(max_length=20, unique=True)
     room_type = models.CharField(max_length=20, choices=ROOM_TYPES)
 

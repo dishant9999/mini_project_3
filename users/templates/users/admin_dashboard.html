@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head><title>Admin Dashboard</title></head>
-<body>
-    <h1>Admin Dashboard</h1>
-    <p>Welcome, {{ user.username }}</p>
-    <a href="{% url 'logout' %}">Logout</a>
-    <nav>
-      <ul>
-        <li><a href="/admin/">Django Admin Panel</a></li>
-        <!-- Add admin feature links here -->
-      </ul>
-    </nav>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, Admin {{ user.username }}</h2>
+
+<p>This is the admin dashboard where you can manage the system.</p>
+
+<ul>
+  <li><a href="{% url 'department_list' %}">Manage Departments</a></li>
+  <li><a href="{% url 'location_list' %}">Manage Locations</a></li>
+  <li><a href="{% url 'scheduler_view' %}">View Scheduler</a></li>
+  <!-- Add more admin links as needed -->
+</ul>
+{% endblock %}

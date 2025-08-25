@@ -1,4 +1,3 @@
-# timetable/models.py
 from django.db import models
 from users.models import User
 
@@ -53,8 +52,6 @@ class Timetable(models.Model):
     def __str__(self):
         return f"Timetable: {self.days_per_week} days, {self.number_of_lectures} lectures"
 
-# timetable/models.py (add after existing models)
-
 class Lesson(models.Model):
     day_choices = [
         ('MON', 'Monday'),
@@ -66,8 +63,8 @@ class Lesson(models.Model):
     day = models.CharField(max_length=3, choices=day_choices)
     start_time = models.TimeField()
     end_time = models.TimeField()
-    number = models.PositiveSmallIntegerField()  # Period number in day
-    
+    number = models.PositiveSmallIntegerField()
+
     def __str__(self):
         return f"{self.get_day_display()} Lesson {self.number} ({self.start_time}-{self.end_time})"
 

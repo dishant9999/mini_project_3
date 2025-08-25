@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head><title>Locations</title></head>
-<body>
-<h1>Locations</h1>
-<ul>
-  {% for loc in locations %}
-    <li>{{ loc.room_type }} - {{ loc.room_number }}</li>
-  {% empty %}
-    <li>No locations available.</li>
-  {% endfor %}
-</ul>
-<a href="{% url 'dashboard' %}">Back to Dashboard</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Locations{% endblock %}
+{% block content %}
+  <h2>Locations</h2>
+  <ul>
+    {% for location in locations %}
+      <li>{{ location.room_type }} - {{ location.room_number }}</li>
+    {% empty %}
+      <li>No locations found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

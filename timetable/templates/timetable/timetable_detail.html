@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Timetable Details</title></head>
-<body>
-<h1>Timetable for {{ stream.name }}</h1>
-<p>Days per week: {{ timetable.days_per_week }}</p>
-<p>Shift: {{ timetable.shift_start_time }} to {{ timetable.shift_end_time }}</p>
-<p>Number of lectures: {{ timetable.number_of_lectures }}</p>
-<a href="{% url 'stream_list' stream.department.id %}">Back to Streams</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Timetable for {{ stream }}{% endblock %}
+
+{% block content %}
+<h2>Timetable for {{ stream }}</h2>
+<p>Basic timetable details here (customize as needed).</p>
+<a href="{% url 'timetable_detailed' stream_id=stream.id %}">View Detailed Timetable</a>
+<a href="{% url 'stream_list' department_id=stream.department.id %}">Back to Streams</a>
+{% endblock %}

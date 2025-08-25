@@ -1,37 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head><title>Detailed Timetable for {{ stream.name }}</title></head>
-<body>
-<h1>Detailed Timetable - {{ stream.name }}</h1>
-<table border="1" cellspacing="0" cellpadding="5">
+{% extends 'base.html' %}
+{% block title %}Detailed Timetable for {{ stream }}{% endblock %}
+
+{% block content %}
+<h2>Detailed Timetable for {{ stream }}</h2>
+<table>
+  <thead>
     <tr>
-        <th>Period</th>
-        <th>Day</th>
-        <th>Time</th>
-        <th>Subject</th>
-        <th>Professor</th>
-        <th>Location</th>
+      <th>Lesson</th>
+      <th>Slots</th>
     </tr>
+  </thead>
+  <tbody>
     {% for lesson in lessons %}
-        {% for slot in slots_by_lesson|default:{}|dict_get:lesson.id %}
-            <tr>
-                <td>{{ lesson.number }}</td>
-                <td>{{ lesson.get_day_display }}</td>
-                <td>{{ lesson.start_time }} - {{ lesson.end_time }}</td>
-                <td>{{ slot.subject.name }}</td>
-                <td>{{ slot.professor.name }}</td>
-                <td>{{ slot.location }}</td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td>{{ lesson.number }}</td>
-                <td>{{ lesson.get_day_display }}</td>
-                <td>{{ lesson.start_time }} - {{ lesson.end_time }}</td>
-                <td colspan="3">No lecture scheduled</td>
-            </tr>
-        {% endfor %}
+      <tr>
+        <td>{{ lesson }}</td>
+        <td>
+          {% for slot in slots_by_lesson|get_item:lesson.id %}
+            {{ slot.subject.name }} by {{ slot.professor.name }} at {{ slot.location }}<br>
+          {% empty %}
+            No slots
+          {% endfor %}
+        </td>
+      </tr>
     {% endfor %}
+  </tbody>
 </table>
-<a href="{% url 'stream_list' stream.department.id %}">Back to Streams</a>
-</body>
-</html>
+<a href="{% url 'timetable_detail' stream_id=stream.id %}">Back to Timetable</a>
+{% endblock %}

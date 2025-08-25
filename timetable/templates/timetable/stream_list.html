@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head><title>Streams</title></head>
-<body>
-<h1>Streams in {{ department.name }}</h1>
+{% extends 'base.html' %}
+{% block title %}Streams in {{ department.name }}{% endblock %}
+
+{% block content %}
+<h2>Streams in {{ department.name }}</h2>
 <ul>
   {% for stream in streams %}
-    <li><a href="{% url 'timetable_detail' stream.id %}">{{ stream.name }} - Sem {{ stream.semester }} Div {{ stream.division }}</a></li>
+    <li><a href="{% url 'timetable_detail' stream_id=stream.id %}">{{ stream }}</a></li>
   {% empty %}
-    <li>No streams available.</li>
+    <li>No streams found.</li>
   {% endfor %}
 </ul>
 <a href="{% url 'department_list' %}">Back to Departments</a>
-</body>
-</html>
+{% endblock %}

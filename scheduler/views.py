@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Task
-from .forms import TaskForm
 from datetime import date as date_class
 
+from .models import Task, FreeTimeSlot
+from .forms import TaskForm
 from .utils import arrange_tasks
-from .models import FreeTimeSlot, Task
-from datetime import date as date_class
 
 @login_required
 def scheduler_view(request):
@@ -20,11 +18,11 @@ def scheduler_view(request):
             task.user = user
             task.date = today
             task.save()
-            # Fetch free time slots for today
+
             free_slots_qs = FreeTimeSlot.objects.filter(user=user, date=today).order_by('start_time')
             free_slots = [(slot.start_time, slot.end_time) for slot in free_slots_qs]
-            # Fetch unscheduled tasks sorted by priority desc
             tasks = Task.objects.filter(user=user, date=today, completed=False).order_by('-priority')
+
             arrange_tasks(user, today, free_slots, list(tasks))
             return redirect('scheduler_view')
     else:
